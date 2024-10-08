@@ -2,7 +2,7 @@ import React from "react";
 import "./Addfood.css";
 import {useState} from "react";
 const Addfood = () => {
-  const url = 'https://admin-mf1y.onrender.com/'
+  const url = 'https://admin-mf1y.onrender.com'
   
   const [data,setdata] = useState({
     name:"",
