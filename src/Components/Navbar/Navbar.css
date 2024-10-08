@@ -1,0 +1,27 @@
+.navbar {
+  background-color: #f44336;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.title h1 {
+  margin: 0;
+}
+
+.heading h2 {
+  margin: 0;
+}
+
+.homeicon img {
+  width: 32px;
+  height: 32px;
+}
