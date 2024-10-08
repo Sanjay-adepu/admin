@@ -1,52 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";  // You missed this import
 import "./Addfood.css";
-import {useState} from "react";
+
 const Addfood = () => {
-  const url = 'https://localhost:4500'
-  
-  const [data,setdata] = useState({
-    name:"",
-    price:"",
-    description:"",
-    category:"breakfast",
-    image:""
+  const url = 'http://localhost:4500';
+
+  const [data, setData] = useState({
+    name: "",
+    price: "",
+    description: "",
+    category: "breakfast",
+    image: null
   });
-  
-  const onchangeHandler = (event) =>{
-    const name = event.target.name;
-    const value = event.target.value;
-    setdata(data=>({...data,[name]:value}))
-  }
-  
-  
-  const onsubmitHandler =async(event) =>{
+
+  const onchangeHandler = (event) => {
+    const { name, value, type, files } = event.target;
+    if (type === "file") {
+      setData(data => ({ ...data, image: files[0] }));
+    } else {
+      setData(data => ({ ...data, [name]: value }));
+    }
+  };
+
+  const onsubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("name",data.name)
-    formData.append("price",data.price)
-    formData.append("description",data.description)
-    formData.append("image",data.image)
-    formData.append("category",data.category)
-    
-    const response = await axios.post(`${url}/food/addfood`,formData)
-    
-  }
-  
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image);
+    formData.append("category", data.category);
+
+    try {
+      const response = await axios.post(`${url}/food/addfood`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log("Food added successfully:", response.data);
+    } catch (error) {
+      console.error("There was an error adding the food:", error);
+    }
+  };
+
   return (
     <div className="addfood">
       <h1>Add New Food Item</h1>
-      <form>
+      <form onSubmit={onsubmitHandler}>
         <label>
           Name:
-          <input type="text" name="name" required />
+          <input
+            type="text"
+            name="name"
+            value={data.name}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Price:
-          <input type="number" name="price" required />
+          <input
+            type="number"
+            name="price"
+            value={data.price}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Product Category:
-          <select name="category">
+          <select name="category" value={data.category} onChange={onchangeHandler}>
             <option value="breakfast">Breakfast</option>
             <option value="burgers">Burgers</option>
             <option value="cake">Cake</option>
@@ -61,11 +84,21 @@ const Addfood = () => {
         </label>
         <label>
           Description:
-          <textarea name="description" required />
+          <textarea
+            name="description"
+            value={data.description}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Image:
-          <input type="file" name="image" required />
+          <input
+            type="file"
+            name="image"
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <button type="submit">Add Food</button>
       </form>
