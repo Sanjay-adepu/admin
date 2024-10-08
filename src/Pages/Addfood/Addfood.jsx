@@ -1,47 +1,59 @@
-import React, { useState } from "react";
-import axios from "axios";  // You missed this import
+  import React, { useState } from "react";
+import axios from "axios"; // Ensure axios is imported
 import "./Addfood.css";
 
 const Addfood = () => {
-  const url = 'http://localhost:4500/'
+  const url = 'http://localhost:4500';
 
   const [data, setData] = useState({
     name: "",
     price: "",
     description: "",
     category: "breakfast",
-    image: null
+    image: null, // Initialize image with null for file upload
   });
 
+  // Handle input changes
   const onchangeHandler = (event) => {
-    const { name, value, type, files } = event.target;
-    if (type === "file") {
-      setData(data => ({ ...data, image: files[0] }));
-    } else {
-      setData(data => ({ ...data, [name]: value }));
+    const { name, value } = event.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle file input changes (specifically for image upload)
+  const onImageChangeHandler = (event) => {
+    setData((prevData) => ({
+      ...prevData,
+      image: event.target.files[0], // For file upload
+    }));
+  };
+
+  // Handle form submission
+  const onsubmitHandler = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image); // File
+    formData.append("category", data.category);
+
+    try {
+      const response = await axios.post(`${url}/food/addfood`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
+      // Handle success message
+    } catch (error) {
+      console.error("Error adding food item", error);
+      // Handle error message
     }
   };
 
-  const onsubmitHandler = async (event) => {
-  event.preventDefault();
-  const formData = new FormData();
-  formData.append("name", data.name);
-  formData.append("price", data.price);
-  formData.append("description", data.description);
-  formData.append("category", data.category);
-  formData.append("image", data.image); // Make sure the file is included here
-
-  try {
-    const response = await axios.post(`${url}/food/addfood`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    console.log("Food added successfully:", response.data);
-  } catch (error) {
-    console.error("Error adding food:", error.response ? error.response.data : error.message);
-  }
-};
   return (
     <div className="addfood">
       <h1>Add New Food Item</h1>
@@ -68,7 +80,11 @@ const Addfood = () => {
         </label>
         <label>
           Product Category:
-          <select name="category" value={data.category} onChange={onchangeHandler}>
+          <select
+            name="category"
+            value={data.category}
+            onChange={onchangeHandler}
+          >
             <option value="breakfast">Breakfast</option>
             <option value="burgers">Burgers</option>
             <option value="cake">Cake</option>
@@ -95,7 +111,7 @@ const Addfood = () => {
           <input
             type="file"
             name="image"
-            onChange={onchangeHandler}
+            onChange={onImageChangeHandler}
             required
           />
         </label>
