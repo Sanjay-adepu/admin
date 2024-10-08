@@ -3,7 +3,7 @@ import axios from "axios";  // You missed this import
 import "./Addfood.css";
 
 const Addfood = () => {
-  const url = 'http://localhost:4500';
+  const url = 'http://localhost:4500/'
 
   const [data, setData] = useState({
     name: "",
