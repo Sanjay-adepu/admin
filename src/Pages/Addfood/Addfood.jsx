@@ -23,26 +23,25 @@ const Addfood = () => {
   };
 
   const onsubmitHandler = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("price", data.price);
-    formData.append("description", data.description);
-    formData.append("image", data.image);
-    formData.append("category", data.category);
+  event.preventDefault();
+  const formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("price", data.price);
+  formData.append("description", data.description);
+  formData.append("category", data.category);
+  formData.append("image", data.image); // Make sure the file is included here
 
-    try {
-      const response = await axios.post(`${url}/food/addfood`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      console.log("Food added successfully:", response.data);
-    } catch (error) {
-      console.error("There was an error adding the food:", error);
-    }
-  };
-
+  try {
+    const response = await axios.post(`${url}/food/addfood`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    console.log("Food added successfully:", response.data);
+  } catch (error) {
+    console.error("Error adding food:", error.response ? error.response.data : error.message);
+  }
+};
   return (
     <div className="addfood">
       <h1>Add New Food Item</h1>
