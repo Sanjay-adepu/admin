@@ -1,5 +1,7 @@
-  import React, { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios"; // Ensure axios is imported
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
 import "./Addfood.css";
 
 const Addfood = () => {
@@ -46,16 +48,24 @@ const Addfood = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
-      // Handle success message
+
+      // If the response is successful, show success toast
+      if (response.data.success) {
+        toast.success("Food item added successfully!");
+      } else {
+        // If something went wrong, show error toast with message
+        toast.error("Failed to add food item.");
+      }
     } catch (error) {
+      // Handle error and show error toast
       console.error("Error adding food item", error);
-      // Handle error message
+      toast.error("Error adding food item. Please try again.");
     }
   };
 
   return (
     <div className="addfood">
+      <ToastContainer /> {/* Add ToastContainer to display toasts */}
       <h1>Add New Food Item</h1>
       <form onSubmit={onsubmitHandler}>
         <label>
