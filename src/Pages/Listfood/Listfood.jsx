@@ -10,9 +10,14 @@ const Listfood = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${url}/food/getfood`);
-        const data = await response.json();
+        const data = response.data; // Correctly access the data
+
+        console.log("API Response:", data); // Log response for debugging
+
         if (data.success) {
           setList(data.data); // Set the food list from the response
+        } else {
+          console.error("Failed to fetch food items:", data.message);
         }
       } catch (error) {
         console.error("Error fetching food list:", error);
@@ -24,12 +29,15 @@ const Listfood = () => {
 
   return (
     <div className="container">
-      <h2>List of food</h2>
+      <h2>List of Food</h2>
       {list.length > 0 ? (
         list.map((item, index) => (
           <div key={index} className="foodtable">
             <img src={item.image} alt={item.name} />
-            <p>{item.name}</p>
+            <p>Name: {item.name}</p>
+            <p>Price: ${item.price}</p>
+            <p>Description: {item.description}</p>
+            <p>Category: {item.category}</p>
           </div>
         ))
       ) : (
