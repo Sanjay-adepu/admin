@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Listfood.css";
 import axios from "axios";
 
 const Listfood = () => {
@@ -29,16 +30,23 @@ const Listfood = () => {
 
   return (
     <div className="container">
+      <div class="heading">
+        <h3>image</h3>
+        <h3>name</h3>
+        <h3>price</h3>
+        <h3>description</h3>
+        <h3>category</h3>
+      </div>
       <h2>List of Food</h2>
       {list.length > 0 ? (
         list.map((item, index) => (
           <div key={index} className="foodtable">
              <img
               src={`${url}/uploads/${item.image}`} />
-            <p>Name: {item.name}</p>
-            <p>Price: ${item.price}</p>
-            <p>Description: {item.description}</p>
-            <p>Category: {item.category}</p>
+            <p>{item.name}</p>
+            <p>{item.price}</p>
+            <p> {item.description}</p>
+            <p>{item.category}</p>
           </div>
         ))
       ) : (
@@ -49,3 +57,4 @@ const Listfood = () => {
 };
 
 export default Listfood;
+        
