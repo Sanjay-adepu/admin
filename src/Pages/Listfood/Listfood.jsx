@@ -33,7 +33,8 @@ const Listfood = () => {
       {list.length > 0 ? (
         list.map((item, index) => (
           <div key={index} className="foodtable">
-            <img src={item.image} alt={item.name} />
+             <img
+              src={`${url}/uploads/${item.image}`} />
             <p>Name: {item.name}</p>
             <p>Price: ${item.price}</p>
             <p>Description: {item.description}</p>
