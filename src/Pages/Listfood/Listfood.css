@@ -50,6 +50,22 @@ h2 {
   font-weight: bold;
   color: #333;
 }
+.remove-button {
+  background-color: #ff4d4d; /* Red background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 15px; /* Padding around text */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-bottom: 10px; /* Margin below button */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s; /* Transition effect */
+}
+
+/* Hover effect for remove button */
+.remove-button:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+}
 
 /* Responsive styles */
 @media (max-width: 768px) {
