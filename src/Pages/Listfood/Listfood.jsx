@@ -30,23 +30,17 @@ const Listfood = () => {
 
   return (
     <div className="container">
-      <div class="heading">
-        <h3>image</h3>
-        <h3>name</h3>
-        <h3>price</h3>
-        <h3>description</h3>
-        <h3>category</h3>
-      </div>
+      
       <h2>List of Food</h2>
       {list.length > 0 ? (
         list.map((item, index) => (
           <div key={index} className="foodtable">
              <img
               src={`${url}/uploads/${item.image}`} />
-            <p>{item.name}</p>
-            <p>{item.price}</p>
-            <p> {item.description}</p>
-            <p>{item.category}</p>
+            <p><span>Name:</span>{item.name}</p>
+            <p><span>Price:</span>{item.price}</p>
+            <p><span>description :</span> {item.description}</p>
+            <p><span>Category:</span>{item.category}</p>
           </div>
         ))
       ) : (
@@ -57,4 +51,3 @@ const Listfood = () => {
 };
 
 export default Listfood;
-        
