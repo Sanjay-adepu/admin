@@ -1,54 +1,65 @@
-/* Listfood.css */
+/* Container for the whole component */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.heading {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-.foodtable {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.foodtable:hover {
-  background-color: #f9f9f9;
-}
-
-.foodtable img {
-  max-width: 100px; /* Set the maximum width for images */
-  height: auto;
-  border-radius: 5px;
-  margin-right: 20px;
-}
-
-.foodtable p {
-  margin: 5px 0;
-  font-size: 16px;
-}
-
-.foodtable p:last-child {
-  margin-bottom: 0;
-}
-
+/* Heading styles */
 h2 {
   text-align: center;
-  margin: 20px 0;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-p {
-  text-align: center; /* Center align text */
+/* Styling for each food item */
+.foodtable {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
+
+/* Hover effect for food items */
+.foodtable:hover {
+  transform: scale(1.02);
+}
+
+/* Image styles */
+.foodtable img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Paragraph styles */
+.foodtable p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Span styles for labels */
+.foodtable span {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .foodtable {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .foodtable img {
+    width: 100%;
+    height: auto;
+  }
+  }
