@@ -1,52 +1,90 @@
-import React from "react";
+  import React, { useState } from "react";
+import axios from "axios"; // Ensure axios is imported
 import "./Addfood.css";
-import {useState} from "react";
+
 const Addfood = () => {
-  const url = 'http://localhost:4500'
-  
-  const [data,setdata] = useState({
-    name:"",
-    price:"",
-    description:"",
-    category:"breakfast",
-    image:""
+  const url = 'http://localhost:4500';
+
+  const [data, setData] = useState({
+    name: "",
+    price: "",
+    description: "",
+    category: "breakfast",
+    image: null, // Initialize image with null for file upload
   });
-  
-  const onchangeHandler = (event) =>{
-    const name = event.target.name;
-    const value = event.target.value;
-    setdata(data=>({...data,[name]:value}))
-  }
-  
-  
-  const onsubmitHandler =async(event) =>{
+
+  // Handle input changes
+  const onchangeHandler = (event) => {
+    const { name, value } = event.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle file input changes (specifically for image upload)
+  const onImageChangeHandler = (event) => {
+    setData((prevData) => ({
+      ...prevData,
+      image: event.target.files[0], // For file upload
+    }));
+  };
+
+  // Handle form submission
+  const onsubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("name",data.name)
-    formData.append("price",data.price)
-    formData.append("description",data.description)
-    formData.append("image",data.image)
-    formData.append("category",data.category)
-    
-    const response = await axios.post(`${url}/food/addfood`,formData)
-    
-  }
-  
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image); // File
+    formData.append("category", data.category);
+
+    try {
+      const response = await axios.post(`${url}/food/addfood`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
+      // Handle success message
+    } catch (error) {
+      console.error("Error adding food item", error);
+      // Handle error message
+    }
+  };
+
   return (
     <div className="addfood">
       <h1>Add New Food Item</h1>
-      <form>
+      <form onSubmit={onsubmitHandler}>
         <label>
           Name:
-          <input type="text" name="name" required />
+          <input
+            type="text"
+            name="name"
+            value={data.name}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Price:
-          <input type="number" name="price" required />
+          <input
+            type="number"
+            name="price"
+            value={data.price}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Product Category:
-          <select name="category">
+          <select
+            name="category"
+            value={data.category}
+            onChange={onchangeHandler}
+          >
             <option value="breakfast">Breakfast</option>
             <option value="burgers">Burgers</option>
             <option value="cake">Cake</option>
@@ -61,11 +99,21 @@ const Addfood = () => {
         </label>
         <label>
           Description:
-          <textarea name="description" required />
+          <textarea
+            name="description"
+            value={data.description}
+            onChange={onchangeHandler}
+            required
+          />
         </label>
         <label>
           Image:
-          <input type="file" name="image" required />
+          <input
+            type="file"
+            name="image"
+            onChange={onImageChangeHandler}
+            required
+          />
         </label>
         <button type="submit">Add Food</button>
       </form>
