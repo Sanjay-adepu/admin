@@ -58,18 +58,16 @@ const Listfood = () => {
       <h2>List of Food</h2>
       {list.length > 0 ? (
         list.map((item, index) => (
-          <div key={index} className="foodtable">
-            <div onClick={() => removefood(item._id)} className="remove-button">Remove</div>
-            <img
-              src={`${url}/uploads/${item.image}`} // Ensure that the path to the image is correct
-              alt={item.name}
-              className="food-image"
-            />
-            <p><span>Name:</span> {item.name}</p>
-            <p><span>Price:</span> {item.price}</p>
-            <p><span>Description:</span> {item.description}</p>
-            <p><span>Category:</span> {item.category}</p>
-          </div>
+          <div className="foodtable">
+  <button className="remove-button" onClick={() => removefood(item._id)}>
+    Remove
+  </button>
+  <img src={`${url}/uploads/${item.image}`} />
+  <p><span>Name:</span> {item.name}</p>
+  <p><span>Price:</span> {item.price}</p>
+  <p><span>Description:</span> {item.description}</p>
+  <p><span>Category:</span> {item.category}</p>
+</div>
         ))
       ) : (
         <p>No food items available.</p>
