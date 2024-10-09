@@ -10,7 +10,7 @@ const Sidebar = () => {
         <Link to="/add">
           <li><img src="./add.png" alt="Add" /><span>Add Item</span></li>
         </Link>
-        <li><img src="./list.png" alt="List" /><span>List Item</span></li>
+    <Link to="/list"> <li><img src="./list.png" alt="List" /><span>List Item</span></li></Link>
         <li><img src="./Orders.png" alt="Orders" /><span>Orders</span></li>
       </ul>
     </div>
