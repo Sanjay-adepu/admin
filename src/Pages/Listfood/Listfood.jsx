@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Listfood = () => {
-  const url = "http://localhost:4500";
+  const url = "https://yumio-backend.onrender.com";
   const [list, setList] = useState([]);
 
   // Use useEffect to fetch data
