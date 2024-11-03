@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
 import "./Addfood.css";
 
 const Addfood = () => {
-  const url = 'http://localhost:4500';
+  const url = 'https://yumio-backend.onrender.com';
 
   const [data, setData] = useState({
     name: "",
